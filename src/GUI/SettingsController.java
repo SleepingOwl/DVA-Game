@@ -1,6 +1,5 @@
 package GUI;
 
-import GUI.Main.DIRECTION;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +22,7 @@ public class SettingsController {
     @FXML
     private TextField speed;
     @FXML
-    private ChoiceBox<DIRECTION> choiceDirection;
+    private ChoiceBox<Main.DIRECTION> choiceDirection;
 
     @FXML
     private void handleBackButton(ActionEvent event) throws IOException{
