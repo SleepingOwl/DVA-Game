@@ -8,7 +8,7 @@ import javafx.scene.shape.SVGPath;
 
 public class VectorRingModel {
 
-    private  Circle redCircle;
+    private Circle redCircle;
     private StackPane movingPane;
     private SVGPath vectorRing;
 
@@ -17,30 +17,30 @@ public class VectorRingModel {
     }
 
     void resize(double size){
-        redCircle.setScaleX(size);
+        redCircle.setScaleX(size+0.5);
         vectorRing.setScaleX(size);
-        redCircle.setScaleY(size);
+        redCircle.setScaleY(size+0.5);
         vectorRing.setScaleY(size);
     }
 
-    VectorRingModel() {
+    public VectorRingModel() {
         movingPane = new StackPane();
         movingPane.setAlignment(Pos.CENTER);
         redCircle = new Circle(0, 0, 30, Color.rgb(255, 0, 0));
-        String svgString = "M29.9,8.2c7.1,2.1,12.3,8.8,12.3,16.6c0,9.6-7.7,17.3-17.2,17.3S7.8,34.3,7.8,24.8c0-7.8,5.2-14.5,12.3-16.6" +
-                " V0.5C8.9,2.8,0.5,12.8,0.5,24.8c0,13.7,11,24.7,24.5,24.7s24.5-11.1,24.5-24.7c0-12-8.4-22-19.6-24.3V8.2z".replace(',',' ');
+        String svgString = "M30,7.9c7.2,2.1,12.6,9,12.6,16.9c0,10.3-8.8,18.5-19.2,17.6c-7.9-0.7-14.5-6.9-15.7-14.8" +
+                " C6.2,18.5,11.9,10.2,20,7.9V0C8.6,2.3,0,12.6,0,24.8C0,38.8,11.2,50,25,50s25-11.3,25-25.2C50,12.6,41.4,2.3,30,0V7.9z".replace(',',' ');
         vectorRing = new SVGPath();
         vectorRing.setContent(svgString);
 
         movingPane.getChildren().addAll(redCircle, vectorRing);
     }
 
-    VectorRingModel(double centreX, double centreY) {
+    public VectorRingModel(double centreX, double centreY) {
         movingPane = new StackPane();
         movingPane.setAlignment(Pos.CENTER);
         redCircle = new Circle(0, 0, 30, Color.rgb(255, 0, 0));
-        String svgString = "M29.9,8.2c7.1,2.1,12.3,8.8,12.3,16.6c0,9.6-7.7,17.3-17.2,17.3S7.8,34.3,7.8,24.8c0-7.8,5.2-14.5,12.3-16.6" +
-                " V0.5C8.9,2.8,0.5,12.8,0.5,24.8c0,13.7,11,24.7,24.5,24.7s24.5-11.1,24.5-24.7c0-12-8.4-22-19.6-24.3V8.2z".replace(',',' ');
+        String svgString = "M30,7.9c7.2,2.1,12.6,9,12.6,16.9c0,10.3-8.8,18.5-19.2,17.6c-7.9-0.7-14.5-6.9-15.7-14.8" +
+                " C6.2,18.5,11.9,10.2,20,7.9V0C8.6,2.3,0,12.6,0,24.8C0,38.8,11.2,50,25,50s25-11.3,25-25.2C50,12.6,41.4,2.3,30,0V7.9z".replace(',',' ');
         vectorRing = new SVGPath();
         vectorRing.setContent(svgString);
 

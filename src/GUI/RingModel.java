@@ -10,7 +10,7 @@ import javafx.scene.shape.Circle;
 public class RingModel {
 
     private ImageView ring = loadImage("Landolt_Ring.png");
-    private  Circle redCircle;
+    private Circle redCircle;
     private StackPane movingPane;
 
     public StackPane getMovingPane() {

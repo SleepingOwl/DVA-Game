@@ -31,12 +31,15 @@ public class MainMenuController {
             stage.setFullScreen(true);
             stage.show();
 
-            RingModel ringModel = new RingModel(stage.getWidth()/2, stage.getHeight()/2);
-            ringModel.resize(0.15);
+//            RingModel ringModel = new RingModel(stage.getWidth()/2, stage.getHeight()/2);
+//            ringModel.resize(0.15);
 
-            VectorRingModel vectorRingModel = new VectorRingModel(stage.getWidth()/2 + 150, stage.getHeight()/2);
+            VectorRingModel vectorRingModel = new VectorRingModel();
             vectorRingModel.resize(0.5);
-            root.getChildren().addAll(ringModel.getMovingPane(), vectorRingModel.getMovingPane());
+            root.getChildren().addAll( vectorRingModel.getMovingPane() );
+
+            AnimationModel animation = new AnimationModel(vectorRingModel.getMovingPane());
+            animation.play();
         }
         else {
             stage = (Stage) settings.getScene().getWindow();
