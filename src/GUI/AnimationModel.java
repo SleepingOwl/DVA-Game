@@ -3,32 +3,49 @@ package GUI;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.layout.StackPane;
+import javafx.scene.Node;
 import javafx.util.Duration;
 
 public class AnimationModel {
 
-    private StackPane animationNode;
+    private Node animationNode;
     private KeyFrame startFrame;
     private KeyFrame endFrame;
-    private int speed;
+    private final int speed = 8000;
     private Timeline timeline;
-    AnimationModel(StackPane node){
+
+    AnimationModel(Node node) {
         animationNode = node;
+        startFrame = new KeyFrame(Duration.millis(0), new KeyValue(animationNode.translateXProperty(), 100));
+        endFrame = new KeyFrame(Duration.millis(speed), new KeyValue(animationNode.translateXProperty(), 800));
         timeline = new Timeline();
+        timeline.getKeyFrames().setAll(startFrame, endFrame);
         timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.setAutoReverse(true);
+        timeline.setAutoReverse(false);
     }
 
-    public void setEndPoint(double x, double y){
-        final KeyFrame kf1 = new KeyFrame(Duration.millis(0),
-                new KeyValue(animationNode.translateXProperty(), x),
-                new KeyValue(animationNode.translateYProperty(), y));
-        final KeyFrame kf2 = new KeyFrame(Duration.millis(300),
-                new KeyValue(animationNode.translateXProperty(), x),
-                new KeyValue(animationNode.translateYProperty(), y));
+    public int getSpeed() {
+        return speed;
+    }
 
-        timeline.getKeyFrames().addAll(kf1, kf2);
+
+    public void changeSpeed(double xN){
+        if (xN < 0.1) {
+            System.out.println(speed/xN);
+        }
+        else {
+            timeline.setRate(xN);
+//        timeline.jumpTo();
+            timeline.play();
+        }
+    }
+
+    public void setLinearPath(double startX, double startY, double endX, double endY){
+        timeline.stop();
+        startFrame = new KeyFrame(Duration.millis(0), new KeyValue(animationNode.translateXProperty(), startX), new KeyValue(animationNode.translateYProperty(), startY));
+        endFrame = new KeyFrame(Duration.millis(speed), new KeyValue(animationNode.translateXProperty(), endX), new KeyValue(animationNode.translateYProperty(), endY));
+        timeline.getKeyFrames().setAll(startFrame, endFrame);
+        timeline.play();
     }
 
     public void play(){

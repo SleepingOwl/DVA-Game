@@ -16,11 +16,19 @@ public class VectorRingModel {
         return movingPane;
     }
 
-    void resize(double size){
+    public void resize(double size){
         redCircle.setScaleX(size+0.5);
         vectorRing.setScaleX(size);
         redCircle.setScaleY(size+0.5);
         vectorRing.setScaleY(size);
+    }
+
+    public void hideRing(){
+        vectorRing.setFill(redCircle.getFill());
+    }
+
+    public void showRing(){
+        vectorRing.setFill(Color.BLACK);
     }
 
     public VectorRingModel() {
