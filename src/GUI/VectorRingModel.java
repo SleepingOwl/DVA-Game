@@ -27,8 +27,12 @@ public class VectorRingModel {
         vectorRing.setFill(redCircle.getFill());
     }
 
-    public void showRing(){
+    public void showRing() {
         vectorRing.setFill(Color.BLACK);
+    }
+
+    public void rotateRing(double angle) {
+        vectorRing.setRotate(angle);
     }
 
     public VectorRingModel() {

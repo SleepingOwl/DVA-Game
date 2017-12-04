@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,18 +21,34 @@ public class MainMenuController {
     @FXML
     private Button settings;
 
-    private static double speedMultiplyCount = 1;
+    private static double speedMultiply = 1;
+    private static double sizeMultiply = 1;
 
     private static double speedUp() {
-        speedMultiplyCount = speedMultiplyCount + 0.1;
-        return speedMultiplyCount;
+        speedMultiply = speedMultiply + 0.1;
+        return speedMultiply;
     }
+
     private static double speedDown() {
-        if (speedMultiplyCount <= 0.1)
+        if (speedMultiply <= 0.1)
             return 0.1;
         else {
-            speedMultiplyCount = speedMultiplyCount - 0.1;
-            return speedMultiplyCount;
+            speedMultiply = speedMultiply - 0.1;
+            return speedMultiply;
+        }
+    }
+
+    private static double sizeUp() {
+        sizeMultiply = sizeMultiply + 0.1;
+        return sizeMultiply;
+    }
+
+    private static double sizeDown() {
+        if (sizeMultiply <= 0.1)
+            return 0.1;
+        else {
+            sizeMultiply = sizeMultiply - 0.1;
+            return sizeMultiply;
         }
     }
 
@@ -59,6 +76,8 @@ public class MainMenuController {
             //animation.changeSpeed(3);
             animation.play();
 
+            Timeline flickerRing = new Timeline();
+
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent event) {
@@ -80,11 +99,22 @@ public class MainMenuController {
                             animation.setLinearPath(50, stage.getHeight()/2,stage.getWidth() - 100, stage.getHeight()/2);
                             break;
 
+                        // speed down
                         case O:
                             animation.changeSpeed(speedDown());
                             break;
+                        // speed up
                         case P:
                             animation.changeSpeed(speedUp());
+                            break;
+
+                        // decries circle and ring size
+                        case R:
+                            vectorRingModel.resize(sizeDown());
+                            break;
+                        // increase circle and ring size
+                        case T:
+                            vectorRingModel.resize(sizeUp());
                             break;
                     }
                 }
