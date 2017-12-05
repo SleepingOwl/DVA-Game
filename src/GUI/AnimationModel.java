@@ -51,4 +51,5 @@ public class AnimationModel {
     public void play(){
         timeline.play();
     }
+    public void pause() {timeline.pause();}
 }

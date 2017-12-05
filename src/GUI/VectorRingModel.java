@@ -6,29 +6,56 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.SVGPath;
 
+import java.util.Random;
+
 public class VectorRingModel {
 
     private Circle redCircle;
     private StackPane movingPane;
     private SVGPath vectorRing;
+    private int rotationAngle;
+
+    public void setRandomRotationAngle() {
+        this.rotationAngle = new Random().nextInt(4)*90;
+    }
+
+    public int getRotationAngle() {
+        return rotationAngle;
+    }
 
     public StackPane getMovingPane() {
         return movingPane;
     }
 
+    public boolean trueRotate(int rotate){
+        return rotationAngle == rotate;
+    }
+
     public void resize(double size){
-        redCircle.setScaleX(size+0.5);
+        redCircle.setScaleX(size+0.2);
         vectorRing.setScaleX(size);
-        redCircle.setScaleY(size+0.5);
+        redCircle.setScaleY(size+0.2);
         vectorRing.setScaleY(size);
     }
 
     public void hideRing(){
         vectorRing.setFill(redCircle.getFill());
+        System.out.println(rotationAngle);
     }
 
     public void showRing() {
         vectorRing.setFill(Color.BLACK);
+        setRandomRotationAngle();
+        vectorRing.setRotate(rotationAngle);
+    }
+
+    public void hideAll() {
+        redCircle.setFill(Color.WHITE);
+        vectorRing.setFill(Color.WHITE);
+    }
+
+    public void showAll() {
+        redCircle.setFill(Color.RED);
     }
 
     public void rotateRing(double angle) {

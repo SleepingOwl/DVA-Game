@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity"
+           minHeight="-Infinity" minWidth="-Infinity"
+           prefHeight="400.0" prefWidth="600.0"
+           xmlns="http://javafx.com/javafx/8.0.162-ea"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="GUI.MainMenuController">
+
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" StackPane.alignment="CENTER">
+
+            <Button fx:id="start" mnemonicParsing="false" onAction="#switchScene" text="Старт" />
+            <Button fx:id="controls" mnemonicParsing="false" onAction="#switchScene" text="Управление" />
+      <Button fx:id="authors" mnemonicParsing="false" onAction="#switchScene" text="Авторы" />
+
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
+      </VBox>
+
+</StackPane>

@@ -8,13 +8,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    enum DIRECTION {UP_DOWN, DOWN_UP, LEFT_RIGHT, RIGHT_LEFT}
-    private MainMenuController c;
-
-
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("main-menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/main-menu.fxml"));
         primaryStage.setTitle("DVA");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();

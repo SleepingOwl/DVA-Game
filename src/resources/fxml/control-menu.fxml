@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ControlsController">
+   <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+      <children>
+         <Label text="Выбор направления движения:">
+            <font>
+               <Font name="System Bold" size="13.0" />
+            </font>
+         </Label>
+         <Label text="U: сверху-вниз" />
+         <Label text="J: снизу-вверх" />
+         <Label text="H: слева-направо" />
+         <Label text="K: справа-налево" />
+         <Label />
+         <Label text="O: замедление анимации">
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+         </Label>
+         <Label text="P: ускорение анимации" />
+         <Label text="R: уменьшение" />
+         <Label text="T: увеличение" />
+      </children>
+      <StackPane.margin>
+         <Insets />
+      </StackPane.margin>
+      <padding>
+         <Insets left="25.0" top="10.0" />
+      </padding>
+   </VBox>
+
+      <Button fx:id="back" mnemonicParsing="false" onAction="#handleBackButton" text="Назад" StackPane.alignment="BOTTOM_LEFT">
+         <StackPane.margin>
+            <Insets bottom="20.0" left="20.0" />
+         </StackPane.margin>
+      </Button>
+
+</StackPane>
