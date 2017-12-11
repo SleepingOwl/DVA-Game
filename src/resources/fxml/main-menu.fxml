@@ -9,7 +9,7 @@
            prefHeight="400.0" prefWidth="600.0"
            xmlns="http://javafx.com/javafx/8.0.162-ea"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="GUI.MainMenuController">
+           fx:controller="controllers.MainMenuController">
 
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" StackPane.alignment="CENTER">
 

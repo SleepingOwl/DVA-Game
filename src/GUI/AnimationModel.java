@@ -11,10 +11,11 @@ public class AnimationModel {
     private Node animationNode;
     private KeyFrame startFrame;
     private KeyFrame endFrame;
-    private final int speed = 8000;
+    private double speed = 8000;
     private Timeline timeline;
 
-    AnimationModel(Node node) {
+
+    public AnimationModel(Node node) {
         animationNode = node;
         startFrame = new KeyFrame(Duration.millis(0), new KeyValue(animationNode.translateXProperty(), 100));
         endFrame = new KeyFrame(Duration.millis(speed), new KeyValue(animationNode.translateXProperty(), 800));
@@ -24,16 +25,16 @@ public class AnimationModel {
         timeline.setAutoReverse(false);
     }
 
-    public int getSpeed() {
-        return speed;
+    public double getSpeed() {
+        return (int)speed;
     }
-
 
     public void changeSpeed(double xN){
         if (xN < 0.1) {
-            System.out.println(speed/xN);
+            speed = speed/0.1;
         }
         else {
+            speed = speed/xN;
             timeline.setRate(xN);
 //        timeline.jumpTo();
             timeline.play();
@@ -51,5 +52,5 @@ public class AnimationModel {
     public void play(){
         timeline.play();
     }
-    public void pause() {timeline.pause();}
+    public void stop() {timeline.stop();}
 }

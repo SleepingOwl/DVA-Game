@@ -40,7 +40,6 @@ public class VectorRingModel {
 
     public void hideRing(){
         vectorRing.setFill(redCircle.getFill());
-        System.out.println(rotationAngle);
     }
 
     public void showRing() {
@@ -50,12 +49,15 @@ public class VectorRingModel {
     }
 
     public void hideAll() {
-        redCircle.setFill(Color.WHITE);
-        vectorRing.setFill(Color.WHITE);
+        if(!movingPane.getChildren().isEmpty()){
+            movingPane.getChildren().clear();
+        }
     }
 
     public void showAll() {
-        redCircle.setFill(Color.RED);
+        if(movingPane.getChildren().isEmpty()){
+            movingPane.getChildren().addAll(redCircle, vectorRing);
+        }
     }
 
     public void rotateRing(double angle) {
