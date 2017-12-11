@@ -11,7 +11,7 @@ public class AnimationModel {
     private Node animationNode;
     private KeyFrame startFrame;
     private KeyFrame endFrame;
-    private double speed = 8000;
+    final double speed = 8000;
     private Timeline timeline;
 
 
@@ -26,15 +26,11 @@ public class AnimationModel {
     }
 
     public double getSpeed() {
-        return (int)speed;
+        return speed/timeline.getCurrentRate();
     }
 
     public void changeSpeed(double xN){
-        if (xN < 0.1) {
-            speed = speed/0.1;
-        }
-        else {
-            speed = speed/xN;
+        if (!(xN < 0.1)) {
             timeline.setRate(xN);
 //        timeline.jumpTo();
             timeline.play();

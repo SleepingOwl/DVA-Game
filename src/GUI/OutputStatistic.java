@@ -8,19 +8,18 @@ import java.util.Calendar;
 
 public class OutputStatistic{
 
-    private static long id = 0;
-
     BufferedWriter bW;
 
     public OutputStatistic() throws IOException{
 
-        BufferedWriter bW = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Kursach\\DVA-Game\\src\\out\\"+Calendar.getInstance().getTime().toString().replace(" ","_").replace(':','-')+".txt")));
-        bW.write("#\tисходное_направление\tполученнное_направление\tскорость\tразмер\n");
-
+        bW = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Kursach\\DVA-Game\\src\\out\\"+Calendar.getInstance().getTime().toString().replace(" ","_").replace(':','-')+".txt")));
+        bW.write(String.format("%-2s %-10s %-6s %-20s %-20s","#","скорость(мс)","размер","исходное_направление","полученнное_направление\n"));
+        bW.flush();
     }
 
     public void write(String str) throws IOException{
         bW.write(str);
+        bW.flush();
     }
 
     public void close() throws IOException{

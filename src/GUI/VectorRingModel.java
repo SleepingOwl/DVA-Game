@@ -27,8 +27,8 @@ public class VectorRingModel {
         return movingPane;
     }
 
-    public boolean trueRotate(int rotate){
-        return rotationAngle == rotate;
+    public double getSizeX(){
+        return vectorRing.getScaleX();
     }
 
     public void resize(double size){

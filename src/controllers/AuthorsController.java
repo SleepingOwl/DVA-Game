@@ -10,13 +10,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ControlsController {
+public class AuthorsController {
 
     @FXML
     private Button back;
 
     @FXML
-    private void handleBackButton(ActionEvent event) throws IOException{
+    private void backButton(ActionEvent event) throws IOException {
         Parent root;
         Stage stage;
 

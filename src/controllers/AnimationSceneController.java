@@ -29,21 +29,17 @@ public class AnimationSceneController implements Initializable {
     private AnchorPane anchorPane;
     @FXML
     PopUpController popUpController;
-
+    OutputStatistic out;
     AnimationModel animation;
     VectorRingModel vectorRingModel;
     Timeline flickerRing;
+    private int angle;
+
     private static int countTrue = 0;
     private static int count = 0;
 
     private static double speedMultiply = 1;
     private static double sizeMultiply = 1;
-
-    void setStage(Stage stage){
-        this.stage = stage;
-        Stage test = (Stage) anchorPane.getScene().getWindow();
-        animation.setLinearPath(50, test.getHeight()/2,test.getWidth()-100, test.getHeight()/2);
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -62,7 +58,7 @@ public class AnimationSceneController implements Initializable {
         flickerRing.play();
 
         try {
-            OutputStatistic out = new OutputStatistic();
+            out = new OutputStatistic();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,7 +68,9 @@ public class AnimationSceneController implements Initializable {
     public void keyboardHandler(KeyEvent keyEvent) throws IOException{
         switch (keyEvent.getCode()){
             case SPACE:
-
+                angle = vectorRingModel.getRotationAngle();
+                System.out.println(angle);
+                vectorRingModel.rotateRing(2.0);
                 vectorRingModel.hideAll();
                 vectorRingModel.hideRing();
                 flickerRing.pause();
@@ -85,10 +83,36 @@ public class AnimationSceneController implements Initializable {
                 Parent root = loader.load();
                 popUpController = loader.getController();
                 popUpController.setStage(dialog);
+                popUpController.setController(this);
                 Scene dialogScene = new Scene(root);
                 dialog.setScene(dialogScene);
                 dialog.show();
                 dialogScene.getRoot().requestFocus();
+
+                System.out.println(count);
+                System.out.println(countTrue);
+                double speed = animation.getSpeed();
+                System.out.println(speed);
+                double size = vectorRingModel.getSizeX();
+                String direction;
+                switch (angle){
+                    case 90:
+                        direction = "RIGHT";
+                        break;
+                    case 180:
+                        direction = "DOWN";
+                        break;
+                    case 270:
+                        direction = "LEFT";
+                        break;
+                    case 0:
+                        direction = "UP";
+                        break;
+                    default:
+                        direction = "UNKNOWN";
+                        break;
+                }
+                out.write(String.format("%-2d %-12.2f %-6.1f %-20s", count, speed, size, direction) );
                 break;
 
             // up-down
@@ -125,19 +149,24 @@ public class AnimationSceneController implements Initializable {
                 break;
             // increase circle and ring size
             case T:
-                vectorRingModel.resize(sizeUp());System.out.println(sizeMultiply);
+                vectorRingModel.resize(sizeUp());
                 //System.out.println(size);
                 break;
-//            case ESCAPE:
-//                animation.stop();
-//                flickerRing.stop();
-//                stage.close();
-//                break;
+            case ESCAPE:
+                double result = ( (double)countTrue/ (double)count);
+                out.write("Процент попадания: " + result*100 + "; Последняя скорость: " + animation.getSpeed());
+                count = 0;
+                countTrue = 0;
+                animation.stop();
+                flickerRing.stop();
+                stage.close();
+                out.close();
+                break;
         }
     }
 
     private static double speedUp() {
-        speedMultiply = speedMultiply + 0.1;
+        speedMultiply = speedMultiply + 0.2;
         return speedMultiply;
     }
 
@@ -145,7 +174,7 @@ public class AnimationSceneController implements Initializable {
         if (speedMultiply <= 0.1)
             return 0.1;
         else {
-            speedMultiply = speedMultiply - 0.1;
+            speedMultiply = speedMultiply - 0.2;
             return speedMultiply;
         }
     }
@@ -165,6 +194,19 @@ public class AnimationSceneController implements Initializable {
         }return sizeMultiply;
     }
 
+    int getAngle(){
+        return angle;
+    }
+
+    void setStage(Stage stage){
+        this.stage = stage;
+        Stage test = (Stage) anchorPane.getScene().getWindow();
+        animation.setLinearPath(50, test.getHeight()/2,test.getWidth()-100, test.getHeight()/2);
+    }
+
+    void incrementTrue(){
+        ++countTrue;
+    }
 }
 
 
