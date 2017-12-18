@@ -1,17 +1,26 @@
 package controllers;
 
-import GUI.AnimationModel;
-import GUI.OutputStatistic;
-import GUI.VectorRingModel;
+import Main.AnimationModel;
+import Main.OutputStatistic;
+import Main.VectorRingModel;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -25,21 +34,29 @@ public class AnimationSceneController implements Initializable {
 
     private Stage stage;
 
-    @FXML
-    private AnchorPane anchorPane;
-    @FXML
-    PopUpController popUpController;
+    @FXML AnchorPane anchorPane;
+    @FXML PopUpController popUpController;
+    @FXML HBox topDialog;
+    @FXML BorderPane bp;
+    @FXML ColorPicker backgroundColor;
+    @FXML Label speedInfo;
+    @FXML Label sizeInfo;
+
     OutputStatistic out;
     AnimationModel animation;
     VectorRingModel vectorRingModel;
     Timeline flickerRing;
     private int angle;
+    private double hbPrefHeight = 0.0;
 
     private static int countTrue = 0;
     private static int count = 0;
 
     private static double speedMultiply = 1;
     private static double sizeMultiply = 1;
+
+    private StringProperty speed;
+    private StringProperty size;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -62,6 +79,44 @@ public class AnimationSceneController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        bp.setTop( null );
+        hbPrefHeight = topDialog.getPrefHeight();
+
+        speed = new SimpleStringProperty(this, animation.getSpeedString());
+
+        Bindings.bindBidirectional(speedInfo.textProperty(), speed);
+    }
+
+    @FXML
+    public void handleTopDialog(MouseEvent event){
+        if(event.isSecondaryButtonDown()) {
+
+            topDialog.setPrefHeight(0.0);
+            bp.setTop(topDialog);
+
+            Timeline openTimeline = new Timeline();
+            openTimeline.getKeyFrames().addAll(
+                    new KeyFrame(Duration.ZERO, new KeyValue(topDialog.prefHeightProperty(), 0)),
+                    new KeyFrame(Duration.millis(300.0), new KeyValue(topDialog.prefHeightProperty(), hbPrefHeight))
+            );
+            openTimeline.play();
+        }
+        else if(event.isPrimaryButtonDown()) {
+            Timeline closeTimeline = new Timeline();
+            closeTimeline.getKeyFrames().addAll(
+                    new KeyFrame(Duration.ZERO, new KeyValue(topDialog.prefHeightProperty(), hbPrefHeight)),
+                    new KeyFrame(Duration.millis(300.0), new KeyValue(topDialog.prefHeightProperty(), 0))
+            );
+            closeTimeline.play();
+
+            closeTimeline.setOnFinished(e -> bp.setTop( null ));
+
+        }
+    }
+    @FXML
+    void choiceColor(ActionEvent event){
+        anchorPane.setBackground(new Background(new BackgroundFill(backgroundColor.getValue(), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     @FXML
@@ -74,6 +129,7 @@ public class AnimationSceneController implements Initializable {
                 vectorRingModel.hideAll();
                 vectorRingModel.hideRing();
                 flickerRing.pause();
+                animation.pause();
                 ++count;
 
                 final Stage dialog = new Stage();

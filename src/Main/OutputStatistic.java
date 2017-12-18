@@ -1,4 +1,4 @@
-package GUI;
+package Main;
 
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;

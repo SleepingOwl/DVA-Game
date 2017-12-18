@@ -1,4 +1,4 @@
-package GUI;
+package Main;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -29,6 +29,10 @@ public class AnimationModel {
         return speed/timeline.getCurrentRate();
     }
 
+    public String getSpeedString() {
+        return "speed: " + speed/timeline.getCurrentRate();
+    }
+
     public void changeSpeed(double xN){
         if (!(xN < 0.1)) {
             timeline.setRate(xN);
@@ -45,8 +49,8 @@ public class AnimationModel {
         timeline.play();
     }
 
-    public void play(){
-        timeline.play();
-    }
-    public void stop() {timeline.stop();}
+    public void playFromStart(){ timeline.playFromStart(); }
+    public void play(){ timeline.play(); }
+    public void pause(){ timeline.pause(); }
+    public void stop(){timeline.stop(); }
 }
