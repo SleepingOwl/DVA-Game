@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="484.0" prefWidth="894.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StatisticViewController">
+   <children>
+      <TableView prefHeight="404.0" prefWidth="894.0">
+        <columns>
+          <TableColumn prefWidth="41.0" text="№" />
+          <TableColumn prefWidth="93.99998474121094" text="Скорость(мс)" />
+            <TableColumn prefWidth="95.0" text="Направление" />
+            <TableColumn text="Размер(V)" />
+            <TableColumn prefWidth="111.0" text="Появ. кольца(мс)" />
+            <TableColumn prefWidth="112.0" text="Проп. кольца(мс)" />
+            <TableColumn prefWidth="113.0" text="Время жизни(мс)" />
+            <TableColumn minWidth="8.0" prefWidth="108.0" text="Поворот кольца" />
+            <TableColumn prefWidth="139.0" text="Полученный поворот" />
+        </columns>
+      </TableView>
+      <Button layoutX="14.0" layoutY="443.0" mnemonicParsing="false" text="Назад" />
+      <Button layoutX="705.0" layoutY="443.0" mnemonicParsing="false" text="Сохранить в текстовый файл" />
+      <Label layoutX="242.0" layoutY="414.0" text="Итого: ">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="289.0" layoutY="414.0" text="Label" />
+   </children>
+</AnchorPane>

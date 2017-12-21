@@ -49,7 +49,7 @@ public class PopUpController {
         finally{
             animationSceneController.animation.playFromStart();
             animationSceneController.flickerRing.play();
-            animationSceneController.vectorRingModel.showAll();
+            animationSceneController.vectorRingModel.setAllVisible(true);
             dialog.close();
         }
     }

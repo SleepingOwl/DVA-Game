@@ -6,8 +6,7 @@ import Main.VectorRingModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +28,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
-//  TODO запсиь информации о скорости и размере
 public class AnimationSceneController implements Initializable {
 
     private Stage stage;
@@ -49,6 +47,13 @@ public class AnimationSceneController implements Initializable {
     private int angle;
     private double hbPrefHeight = 0.0;
 
+    private int showTime;
+    private int hideTime;
+    private int ringLifetime;
+
+    private KeyFrame startFrame;
+    private KeyFrame endFrame;
+
     private static int countTrue = 0;
     private static int count = 0;
 
@@ -61,17 +66,20 @@ public class AnimationSceneController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
         vectorRingModel = new VectorRingModel();
+        vectorRingModel.setRandomRotationAngle();
         anchorPane.getChildren().addAll( vectorRingModel.getMovingPane() );
 
         animation = new AnimationModel(vectorRingModel.getMovingPane());
         animation.play();
 
-        vectorRingModel.hideRing();
-        int timeToShow = new Random().nextInt(3)+1;
+        vectorRingModel.setRingVisible(false);
+        showTime = new Random().nextInt(5000)+1000;
+        ringLifetime = 500;
         flickerRing = new Timeline();
+        startFrame = new KeyFrame(Duration.millis(showTime), (e) -> vectorRingModel.setRingVisible(true));
+        endFrame = new KeyFrame(Duration.millis(showTime+ringLifetime), (e)-> hideAndShuffle());
         flickerRing.setCycleCount(Timeline.INDEFINITE);
-        flickerRing.getKeyFrames().addAll( new KeyFrame(Duration.seconds(timeToShow), (e) -> vectorRingModel.showRing()),
-                new KeyFrame(Duration.seconds(timeToShow+0.5), (e)-> vectorRingModel.hideRing()) );
+        flickerRing.getKeyFrames().setAll( startFrame, endFrame );
         flickerRing.play();
 
         try {
@@ -83,9 +91,7 @@ public class AnimationSceneController implements Initializable {
         bp.setTop( null );
         hbPrefHeight = topDialog.getPrefHeight();
 
-        speed = new SimpleStringProperty(this, animation.getSpeedString());
-
-        Bindings.bindBidirectional(speedInfo.textProperty(), speed);
+        speedInfo.textProperty().bind(new SimpleDoubleProperty(animation.getSpeed()).asString());
     }
 
     @FXML
@@ -126,8 +132,7 @@ public class AnimationSceneController implements Initializable {
                 angle = vectorRingModel.getRotationAngle();
                 System.out.println(angle);
                 vectorRingModel.rotateRing(2.0);
-                vectorRingModel.hideAll();
-                vectorRingModel.hideRing();
+                vectorRingModel.setAllVisible(false);
                 flickerRing.pause();
                 animation.pause();
                 ++count;
@@ -172,42 +177,53 @@ public class AnimationSceneController implements Initializable {
                 break;
 
             // up-down
-            case U:
+            case NUMPAD8:
                 animation.setLinearPath(stage.getWidth()/2, 50,stage.getWidth()/2, stage.getHeight() - 100);
                 break;
-            // left-right
-            case K:
+            // right-left
+            case NUMPAD6:
                 animation.setLinearPath(stage.getWidth() - 100,  stage.getHeight()/2,50, stage.getHeight()/2);
                 break;
             // down-up
-            case J:
+            case NUMPAD2:
                 animation.setLinearPath(stage.getWidth()/2, stage.getHeight()-100,stage.getWidth()/2, 50);
                 break;
-            // right-left
-            case H:
+            // left-right
+            case NUMPAD4:
                 animation.setLinearPath(50, stage.getHeight()/2,stage.getWidth() - 100, stage.getHeight()/2);
+                break;
+
+            // decries circle and ring size
+            case SUBTRACT:
+                vectorRingModel.resize(sizeDown());
+                //sizeUp();
+                break;
+            // increase circle and ring size
+            case ADD:
+                vectorRingModel.resize(sizeUp());
                 break;
 
             // speed down
             case O:
                 animation.changeSpeed(speedDown());
+                speedInfo.textProperty().bind(new SimpleDoubleProperty(animation.getSpeed()).asString());
                 break;
             // speed up
             case P:
                 animation.changeSpeed(speedUp());
+                speedInfo.textProperty().bind(new SimpleDoubleProperty(animation.getSpeed()).asString());
                 break;
 
-            // decries circle and ring size
-            case R:
-                vectorRingModel.resize(sizeDown());
-                System.out.println(sizeMultiply);
-                //sizeUp();
+            case I:
+                ringLifetime += 50;
                 break;
-            // increase circle and ring size
-            case T:
-                vectorRingModel.resize(sizeUp());
-                //System.out.println(size);
+            case U:
+                if(ringLifetime < 100)
+                    ringLifetime = 50;
+                else
+                    ringLifetime -= 50;
                 break;
+
             case ESCAPE:
                 double result = ( (double)countTrue/ (double)count);
                 out.write("Процент попадания: " + result*100 + "; Последняя скорость: " + animation.getSpeed());
@@ -219,6 +235,20 @@ public class AnimationSceneController implements Initializable {
                 out.close();
                 break;
         }
+    }
+
+    private void hideAndShuffle(){
+        showTime = new Random().nextInt(5000)+1000;
+
+        if(flickerRing != null) flickerRing.stop();
+
+        startFrame = new KeyFrame(Duration.millis(showTime), (e) -> vectorRingModel.setRingVisible(true));
+        endFrame = new KeyFrame(Duration.millis(showTime+ringLifetime), (e)-> hideAndShuffle());
+        flickerRing.getKeyFrames().setAll(startFrame, endFrame);
+        flickerRing.play();
+
+        vectorRingModel.setRandomRotationAngle();
+        vectorRingModel.setRingVisible(false);
     }
 
     private static double speedUp() {

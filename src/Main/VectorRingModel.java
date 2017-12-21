@@ -38,26 +38,12 @@ public class VectorRingModel {
         vectorRing.setScaleY(size);
     }
 
-    public void hideRing(){
-        vectorRing.setFill(redCircle.getFill());
+    public void setRingVisible(boolean set) {
+        vectorRing.setVisible(set);
     }
 
-    public void showRing() {
-        vectorRing.setFill(Color.BLACK);
-        setRandomRotationAngle();
-        vectorRing.setRotate(rotationAngle);
-    }
-
-    public void hideAll() {
-        if(!movingPane.getChildren().isEmpty()){
-            movingPane.getChildren().clear();
-        }
-    }
-
-    public void showAll() {
-        if(movingPane.getChildren().isEmpty()){
-            movingPane.getChildren().addAll(redCircle, vectorRing);
-        }
+    public void setAllVisible(boolean set) {
+        movingPane.setVisible(set);
     }
 
     public void rotateRing(double angle) {
@@ -72,7 +58,7 @@ public class VectorRingModel {
                 " C6.2,18.5,11.9,10.2,20,7.9V0C8.6,2.3,0,12.6,0,24.8C0,38.8,11.2,50,25,50s25-11.3,25-25.2C50,12.6,41.4,2.3,30,0V7.9z".replace(',',' ');
         vectorRing = new SVGPath();
         vectorRing.setContent(svgString);
-
+        resize(1.0);
         movingPane.getChildren().addAll(redCircle, vectorRing);
     }
 
@@ -84,7 +70,8 @@ public class VectorRingModel {
                 " C6.2,18.5,11.9,10.2,20,7.9V0C8.6,2.3,0,12.6,0,24.8C0,38.8,11.2,50,25,50s25-11.3,25-25.2C50,12.6,41.4,2.3,30,0V7.9z".replace(',',' ');
         vectorRing = new SVGPath();
         vectorRing.setContent(svgString);
-
+        vectorRing.prefHeight(10);
+        vectorRing.prefWidth(10);
         movingPane.getChildren().addAll(redCircle, vectorRing);
         movingPane.setLayoutX(centreX);
         movingPane.setLayoutY(centreY);

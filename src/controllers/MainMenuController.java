@@ -20,24 +20,16 @@ public class MainMenuController {
     private Button authors;
 
     @FXML
-    AnimationSceneController animationSceneController;
-
-    @FXML
     private void switchScene(ActionEvent event) throws IOException {
         Stage stage;
         Scene scene;
 
         if(event.getSource() == start) {
-            stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/fxml/animation-scene.fxml"));
-            Parent root = loader.load();
-            scene = new Scene(root, 600,400);
+            stage = (Stage) start.getScene().getWindow();;
+            Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/logination-scene.fxml"));
+            scene = new Scene(root);
             stage.setScene(scene);
-            stage.setFullScreen(true);
-            animationSceneController = loader.getController();
-            animationSceneController.setStage(stage);
             stage.show();
-            scene.getRoot().requestFocus();
         }
         else if(event.getSource() == controls){
             stage = (Stage) controls.getScene().getWindow();
