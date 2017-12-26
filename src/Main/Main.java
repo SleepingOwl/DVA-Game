@@ -6,13 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/main-menu.fxml"));
+    public void start(Stage primaryStage) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/authorization/login.fxml"));
         primaryStage.setTitle("DVA");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 

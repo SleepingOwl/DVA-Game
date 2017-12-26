@@ -1,4 +1,4 @@
-package Main;
+package models;
 
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;

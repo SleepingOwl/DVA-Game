@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.animation.AnimationSceneController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,11 @@ public class MainMenuController {
     @FXML
     private Button controls;
     @FXML
-    private Button authors;
+    private Button preview;
+//    @FXML
+//    private Button authors;
+    @FXML
+    public AnimationSceneController animationSceneController;
 
     @FXML
     private void switchScene(ActionEvent event) throws IOException {
@@ -25,11 +30,17 @@ public class MainMenuController {
         Scene scene;
 
         if(event.getSource() == start) {
-            stage = (Stage) start.getScene().getWindow();;
-            Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/logination-scene.fxml"));
-            scene = new Scene(root);
+            stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/fxml/animation/animation-scene.fxml"));
+            Parent root = loader.load();
+            scene = new Scene(root, 600, 400);
             stage.setScene(scene);
+            stage.setFullScreen(true);
+            animationSceneController = loader.getController();
+            animationSceneController.setStage(stage);
             stage.show();
+            scene.getRoot().requestFocus();
+
         }
         else if(event.getSource() == controls){
             stage = (Stage) controls.getScene().getWindow();
@@ -38,13 +49,20 @@ public class MainMenuController {
             stage.setScene(scene);
             stage.show();
         }
-        else {
-            stage = (Stage) authors.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/authors.fxml"));
+        else if(event.getSource() == preview){
+            stage = (Stage) start.getScene().getWindow();;
+            Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/statistic/preview.fxml"));
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         }
+//        else {
+//            stage = (Stage) authors.getScene().getWindow();
+//            Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/authors.fxml"));
+//            scene = new Scene(root);
+//            stage.setScene(scene);
+//            stage.show();
+//        }
 
     }
 }

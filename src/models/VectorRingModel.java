@@ -1,4 +1,4 @@
-package Main;
+package models;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
@@ -15,8 +15,9 @@ public class VectorRingModel {
     private SVGPath vectorRing;
     private int rotationAngle;
 
-    public void setRandomRotationAngle() {
+    public void randomRotation() {
         this.rotationAngle = new Random().nextInt(4)*90;
+        vectorRing.setRotate(rotationAngle);
     }
 
     public int getRotationAngle() {

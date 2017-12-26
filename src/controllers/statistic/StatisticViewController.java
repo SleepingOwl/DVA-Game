@@ -1,4 +1,4 @@
-package controllers;
+package controllers.statistic;
 
 public class StatisticViewController {
 }

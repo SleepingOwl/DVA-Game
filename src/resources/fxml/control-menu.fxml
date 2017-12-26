@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.162-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControlsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControlsController">
    <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
       <children>
          <Label text="Выбор направления движения:">
@@ -12,10 +12,10 @@
                <Font name="System Bold" size="13.0" />
             </font>
          </Label>
-         <Label text="U: сверху-вниз" />
-         <Label text="J: снизу-вверх" />
-         <Label text="H: слева-направо" />
-         <Label text="K: справа-налево" />
+         <Label text="NUM_8: сверху-вниз" />
+         <Label text="NUM_2: снизу-вверх" />
+         <Label text="NUM_4: слева-направо" />
+         <Label text="NUM_6: справа-налево" />
          <Label />
          <Label text="O: замедление анимации">
             <VBox.margin>
@@ -23,8 +23,10 @@
             </VBox.margin>
          </Label>
          <Label text="P: ускорение анимации" />
-         <Label text="R: уменьшение" />
-         <Label text="T: увеличение" />
+         <Label text="-: уменьшение" />
+         <Label text="+: увеличение" />
+         <Label text="I: увеличение времени &quot;жизни&quot; кольца" />
+         <Label text="U: уменьшение времени &quot;жизни&quot; кольца" />
       </children>
       <StackPane.margin>
          <Insets />

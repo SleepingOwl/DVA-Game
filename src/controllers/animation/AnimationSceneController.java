@@ -1,8 +1,5 @@
-package controllers;
+package controllers.animation;
 
-import Main.AnimationModel;
-import Main.OutputStatistic;
-import Main.VectorRingModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -23,6 +20,9 @@ import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import models.AnimationModel;
+import models.OutputStatistic;
+import models.VectorRingModel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -66,7 +66,7 @@ public class AnimationSceneController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources){
         vectorRingModel = new VectorRingModel();
-        vectorRingModel.setRandomRotationAngle();
+        vectorRingModel.randomRotation();
         anchorPane.getChildren().addAll( vectorRingModel.getMovingPane() );
 
         animation = new AnimationModel(vectorRingModel.getMovingPane());
@@ -119,6 +119,7 @@ public class AnimationSceneController implements Initializable {
             closeTimeline.setOnFinished(e -> bp.setTop( null ));
 
         }
+        bp.requestFocus();
     }
     @FXML
     void choiceColor(ActionEvent event){
@@ -140,7 +141,7 @@ public class AnimationSceneController implements Initializable {
                 final Stage dialog = new Stage();
                 dialog.initModality(Modality.APPLICATION_MODAL);
                 dialog.initOwner(stage);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/pop-up.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/fxml/animation/pop-up.fxml"));
                 Parent root = loader.load();
                 popUpController = loader.getController();
                 popUpController.setStage(dialog);
@@ -224,16 +225,16 @@ public class AnimationSceneController implements Initializable {
                     ringLifetime -= 50;
                 break;
 
-            case ESCAPE:
-                double result = ( (double)countTrue/ (double)count);
-                out.write("Процент попадания: " + result*100 + "; Последняя скорость: " + animation.getSpeed());
-                count = 0;
-                countTrue = 0;
-                animation.stop();
-                flickerRing.stop();
-                stage.close();
-                out.close();
-                break;
+//            case ESCAPE:
+//                double result = ( (double)countTrue/ (double)count);
+//                out.write("Процент попадания: " + result*100 + "; Последняя скорость: " + animation.getSpeed());
+//                count = 0;
+//                countTrue = 0;
+//                animation.stop();
+//                flickerRing.stop();
+//                stage.close();
+//                out.close();
+//                break;
         }
     }
 
@@ -247,7 +248,7 @@ public class AnimationSceneController implements Initializable {
         flickerRing.getKeyFrames().setAll(startFrame, endFrame);
         flickerRing.play();
 
-        vectorRingModel.setRandomRotationAngle();
+        vectorRingModel.randomRotation();
         vectorRingModel.setRingVisible(false);
     }
 
@@ -284,7 +285,7 @@ public class AnimationSceneController implements Initializable {
         return angle;
     }
 
-    void setStage(Stage stage){
+    public void setStage(Stage stage){
         this.stage = stage;
         Stage test = (Stage) anchorPane.getScene().getWindow();
         animation.setLinearPath(50, test.getHeight()/2,test.getWidth()-100, test.getHeight()/2);
