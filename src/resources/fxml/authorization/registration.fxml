@@ -19,12 +19,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="txtUsername" GridPane.columnIndex="1" />
+            <TextField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtFirstName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtLastName" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="intAge" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="dblVisualAcuity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label prefHeight="17.0" prefWidth="115.0" text="Имя пользователя:" GridPane.halignment="RIGHT">
                <padding>
                   <Insets right="10.0" />
@@ -53,5 +53,6 @@
       </GridPane>
       <Button fx:id="back" layoutX="24.0" layoutY="248.0" mnemonicParsing="false" onAction="#buttonHandler" text="Назад" />
       <Button fx:id="register" layoutX="220.0" layoutY="248.0" mnemonicParsing="false" onAction="#buttonHandler" text="Зарегестрировать" />
+      <Label fx:id="ifSuccess" layoutX="137.0" layoutY="252.0" text="Label" />
    </children>
 </AnchorPane>

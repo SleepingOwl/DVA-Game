@@ -26,8 +26,8 @@
                   <Insets right="10.0" />
                </padding>
             </Label>
-            <TextField prefHeight="25.0" prefWidth="140.0" GridPane.columnIndex="1" />
-            <TextField prefHeight="25.0" prefWidth="142.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtUsername" prefHeight="25.0" prefWidth="140.0" GridPane.columnIndex="1" />
+            <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Button fx:id="login" layoutX="214.0" layoutY="170.0" mnemonicParsing="false" onAction="#buttonHandler" text="Войти" />
@@ -35,5 +35,6 @@
          <font>
             <Font size="11.0" />
          </font></Button>
+      <Label fx:id="txtIncorrect" alignment="CENTER" layoutX="19.0" layoutY="24.0" prefHeight="48.0" prefWidth="440.0" textAlignment="CENTER" textFill="RED" />
    </children>
 </AnchorPane>

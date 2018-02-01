@@ -14,6 +14,8 @@ import java.io.IOException;
 public class MainMenuController {
 
     @FXML
+    private Button changeUser;
+    @FXML
     private Button start;
     @FXML
     private Button controls;
@@ -50,8 +52,15 @@ public class MainMenuController {
             stage.show();
         }
         else if(event.getSource() == preview){
-            stage = (Stage) start.getScene().getWindow();;
+            stage = (Stage) start.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/statistic/preview.fxml"));
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        else if(event.getSource() == changeUser){
+            stage = (Stage) start.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("../resources/fxml/statistic/login.fxml"));
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

@@ -16,7 +16,7 @@
             <Insets />
          </StackPane.margin>
       </VBox>
-   <Button alignment="TOP_LEFT" mnemonicParsing="false" text="Сменить пользователя">
+   <Button fx:id="changeUser" alignment="TOP_LEFT" mnemonicParsing="false" text="Сменить пользователя">
       <StackPane.margin>
          <Insets left="10.0" top="10.0" />
       </StackPane.margin>

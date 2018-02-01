@@ -18,8 +18,6 @@ public class PopUpController {
     }
     void setController(AnimationSceneController controller) { animationSceneController = controller; }
 
-//  TODO сделать запуск анимации по нажатию стрелок
-//  TODO запись информации о нажатой клавише
     @FXML
     private void arrowsHandler(KeyEvent keyEvent) throws IOException{
         try {
