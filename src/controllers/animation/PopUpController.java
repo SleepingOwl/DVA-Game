@@ -25,27 +25,25 @@ public class PopUpController {
                 case UP:
                     if(animationSceneController.getAngle() == 0)
                         animationSceneController.incrementTrue();
-                    animationSceneController.out.write(" UP\n");
                     break;
                 case DOWN:
                     if(animationSceneController.getAngle() == 180)
                         animationSceneController.incrementTrue();
-                    animationSceneController.out.write(" DOWN\n");
                     break;
                 case LEFT:
                     if(animationSceneController.getAngle() == 270)
                         animationSceneController.incrementTrue();
-                    animationSceneController.out.write(" LEFT\n");
                     break;
                 case RIGHT:
                     if(animationSceneController.getAngle() == 90)
                         animationSceneController.incrementTrue();
-                    animationSceneController.out.write(" RIGHT\n");
                     break;
             }
         }
-        finally{
-            animationSceneController.animation.playFromStart();
+        finally {
+            animationSceneController.animation.stop();
+            animationSceneController.animation.play();
+            animationSceneController.flickerRing.stop();
             animationSceneController.flickerRing.play();
             animationSceneController.vectorRingModel.setAllVisible(true);
             dialog.close();

@@ -12,7 +12,7 @@ public class AnimationModel {
     private KeyFrame startFrame;
     private KeyFrame endFrame;
     final double speed = 8000;
-    private Timeline timeline;
+    public Timeline timeline;
 
 
     public AnimationModel(Node node) {

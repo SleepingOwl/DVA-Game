@@ -1,5 +1,6 @@
 package controllers.authorization;
 
+import controllers.MainMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    private LoginModel loginModelModel = new LoginModel();
+    private LoginModel loginModel = new LoginModel();
 
     @FXML
     private Button login;
@@ -34,7 +35,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        if (loginModelModel.isDbConnected())
+        if (loginModel.isDbConnected())
             txtIncorrect.setText("Connected");
         else
             txtIncorrect.setText("Not Connected");
@@ -46,7 +47,8 @@ public class LoginController implements Initializable {
         Scene scene;
         if(event.getSource() == login){
             try {
-                if (loginModelModel.isLogin(txtUsername.getText(), txtPassword.getText())) {
+                if (loginModel.isLogin(txtUsername.getText(), txtPassword.getText())) {
+                    MainMenuController.sessionId = loginModel.getUserId(txtUsername.getText());
                     stage = (Stage) login.getScene().getWindow();
                     Parent root = FXMLLoader.load(getClass().getResource("/resources/fxml/main-menu.fxml"));
                     scene = new Scene(root);

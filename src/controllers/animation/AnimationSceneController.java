@@ -4,7 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +20,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.AnimationModel;
-import models.OutputStatistic;
 import models.VectorRingModel;
 
 import java.io.IOException;
@@ -40,7 +38,8 @@ public class AnimationSceneController implements Initializable {
     @FXML Label speedInfo;
     @FXML Label sizeInfo;
 
-    OutputStatistic out;
+    private int resultId;
+
     AnimationModel animation;
     VectorRingModel vectorRingModel;
     Timeline flickerRing;
@@ -48,7 +47,6 @@ public class AnimationSceneController implements Initializable {
     private double hbPrefHeight = 0.0;
 
     private int showTime;
-    private int hideTime;
     private int ringLifetime;
 
     private KeyFrame startFrame;
@@ -60,8 +58,9 @@ public class AnimationSceneController implements Initializable {
     private static double speedMultiply = 1;
     private static double sizeMultiply = 1;
 
-    private StringProperty speed;
-    private StringProperty size;
+    public void setResultId(int resultId) {
+        this.resultId = resultId;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
@@ -82,16 +81,11 @@ public class AnimationSceneController implements Initializable {
         flickerRing.getKeyFrames().setAll( startFrame, endFrame );
         flickerRing.play();
 
-        try {
-            out = new OutputStatistic();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         bp.setTop( null );
         hbPrefHeight = topDialog.getPrefHeight();
 
         speedInfo.textProperty().bind(new SimpleDoubleProperty(animation.getSpeed()).asString());
+//        sizeInfo.textProperty().bind(new SimpleDoubleProperty().asString());
     }
 
     @FXML
@@ -131,11 +125,11 @@ public class AnimationSceneController implements Initializable {
         switch (keyEvent.getCode()){
             case SPACE:
                 angle = vectorRingModel.getRotationAngle();
-                System.out.println(angle);
+//                System.out.println(angle);
                 vectorRingModel.rotateRing(2.0);
                 vectorRingModel.setAllVisible(false);
-                flickerRing.pause();
-                animation.pause();
+                flickerRing.stop();
+                animation.stop();
                 ++count;
 
                 final Stage dialog = new Stage();
@@ -151,10 +145,9 @@ public class AnimationSceneController implements Initializable {
                 dialog.show();
                 dialogScene.getRoot().requestFocus();
 
-                System.out.println(count);
-                System.out.println(countTrue);
+//                System.out.println(count);
+//                System.out.println(countTrue);
                 double speed = animation.getSpeed();
-                System.out.println(speed);
                 double size = vectorRingModel.getSizeX();
                 String direction;
                 switch (angle){
@@ -174,7 +167,6 @@ public class AnimationSceneController implements Initializable {
                         direction = "UNKNOWN";
                         break;
                 }
-                out.write(String.format("%-2d %-12.2f %-6.1f %-20s", count, speed, size, direction) );
                 break;
 
             // up-down
@@ -223,6 +215,10 @@ public class AnimationSceneController implements Initializable {
                     ringLifetime = 50;
                 else
                     ringLifetime -= 50;
+                break;
+            case R:
+                animation.stop();
+                animation.play();
                 break;
 
 //            case ESCAPE:

@@ -9,9 +9,8 @@
       <Button layoutX="443.0" layoutY="295.0" mnemonicParsing="false" text="Посмотреть статистику" />
       <TableView layoutX="14.0" layoutY="14.0" prefHeight="306.0" prefWidth="401.0">
         <columns>
-          <TableColumn prefWidth="134.0" text="Имя Фамилия" />
-            <TableColumn prefWidth="62.0" text="Возраст" />
-            <TableColumn prefWidth="204.0" text="Острота зрения" />
+            <TableColumn prefWidth="34.0" text="#" />
+            <TableColumn prefWidth="366.0" text="Дата и время" />
         </columns>
       </TableView>
       <Button layoutX="14.0" layoutY="329.0" mnemonicParsing="false" text="Обновить" />

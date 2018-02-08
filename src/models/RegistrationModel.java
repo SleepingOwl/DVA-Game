@@ -7,10 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class RegistrationModel {
-    Connection conection;
+    Connection connection;
     public RegistrationModel() {
-        conection = SqliteConnection.Connector();
-        if (conection == null) {
+        connection = SqliteConnection.Connector();
+        if (connection == null) {
 
             System.out.println("connection not successful");
             System.exit(1);}
@@ -20,7 +20,7 @@ public class RegistrationModel {
         PreparedStatement preparedStatement;
         String query = "INSERT INTO users(username, password, first_name, last_name, age) VALUES(?,?,?,?,?)";
         try {
-            preparedStatement = conection.prepareStatement(query);
+            preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             preparedStatement.setString(3, firstName);
